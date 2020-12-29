@@ -2,3 +2,5 @@ requirement_packages:
   - apt-transport-https
   - ca-certificates
   - dirmngr
+
+work_dir: "{{ ansible_env.HOME }}/clickhouse-workdir"

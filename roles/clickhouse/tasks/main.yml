@@ -6,3 +6,6 @@
 
 - name: Create metadata
   import_tasks: metadata.yml
+
+- name: Import data
+  import_tasks: data.yml

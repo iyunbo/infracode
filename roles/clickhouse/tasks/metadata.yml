@@ -1,9 +1,9 @@
 - name: Copy SQL file
   copy:
     src: "tutorial.sql"
-    dest: "{{ ansible_env.HOME }}/clickhouse-workdir/"
+    dest: "{{ work_dir }}/"
 
 - name: Create tutorial database
   shell: "cat tutorial.sql | clickhouse-client -mn"
   args:
-    chdir: "{{ ansible_env.HOME }}/clickhouse-workdir"
+    chdir: "{{ work_dir }}"
