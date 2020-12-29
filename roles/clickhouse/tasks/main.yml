@@ -1,3 +1,8 @@
 - name: Install the latest clickhouse for Debian
   import_tasks: debian.yml
-  when: ansible_facts['os_family']|lower == 'debian'
+
+- name: Setup clickhouse cluster
+  import_tasks: config.yml
+
+- name: Create metadata
+  import_tasks: metadata.yml
