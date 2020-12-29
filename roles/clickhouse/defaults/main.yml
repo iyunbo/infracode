@@ -1,0 +1,4 @@
+requirement_packages:
+  - apt-transport-https
+  - ca-certificates
+  - dirmngr

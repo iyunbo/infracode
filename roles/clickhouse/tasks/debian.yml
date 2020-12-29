@@ -1,0 +1,28 @@
+- name: Add clickhouse repository into sources list
+  apt_repository:
+    repo: deb https://repo.clickhouse.tech/deb/stable/ main/
+    state: present
+    filename: clickhouse
+  become: true
+
+- name: download the apt key of clickhouse server
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 9EBB357BC2B0876A774500C7C8F1E19FE0C56BD4
+
+- name: Install requirements of clickhouse
+  apt:
+    name: "{{ requirement_packages }}"
+    state: present
+
+- name: Install latest clickhouse server and client
+  apt:
+    name: ["clickhouse-server", "clickhouse-client"]
+    state: present
+  become: true
+
+- name: Start clickhouse server
+  service:
+    name: clickhouse-server
+    state: started
+  become: true

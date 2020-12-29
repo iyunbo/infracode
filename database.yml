@@ -1,0 +1,6 @@
+---
+- hosts: database
+  roles:
+    - clickhouse
+  tags:
+    - clickhouse
