@@ -1,28 +1,11 @@
-- name: setup cluster
-  blockinfile:
-    path: /etc/clickhouse-server/config.xml
-    insertbefore: '</remote_servers>'
-    marker: '<!-- managed by ansible -->'
-    state: present
-    block: |
-        <sandbox_2shards_1replicas>
-            <shard>
-                <replica>
-                    <host>192.168.1.19</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-            <shard>
-                <replica>
-                    <host>192.168.1.24</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-        </sandbox_2shards_1replicas>
+- name: Configure clickhouse
   become: true
+  template:
+    src: config.xml
+    dest: "{{ clickhouse_config_file }}"
 
 - name: Retart clickhouse server
+  become: true
   service:
     name: clickhouse-server
     state: restarted
-  become: true
