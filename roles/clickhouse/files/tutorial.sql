@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS tutorial;
 
-CREATE TABLE IF NOT EXISTS tutorial.hits_v1
+CREATE TABLE IF NOT EXISTS tutorial.hits_shard
 (
     `WatchID` UInt64,
     `JavaEnable` UInt8,
@@ -137,13 +137,13 @@ CREATE TABLE IF NOT EXISTS tutorial.hits_v1
     `RequestNum` UInt32,
     `RequestTry` UInt8
 )
-ENGINE = MergeTree()
+ENGINE = ReplicatedMergeTree('/clickhouse_sandbox/tables/{shard}/hits', '{replica}')
 PARTITION BY toYYYYMM(EventDate)
 ORDER BY (CounterID, EventDate, intHash32(UserID))
 SAMPLE BY intHash32(UserID)
 SETTINGS index_granularity = 8192;
 
-CREATE TABLE IF NOT EXISTS tutorial.visits_v1
+CREATE TABLE IF NOT EXISTS tutorial.visits_shard
 (
     `CounterID` UInt32,
     `StartDate` Date,
@@ -331,14 +331,14 @@ CREATE TABLE IF NOT EXISTS tutorial.visits_v1
         GoodPrice Int64),
     `IslandID` FixedString(16)
 )
-ENGINE = CollapsingMergeTree(Sign)
+ENGINE = ReplicatedCollapsingMergeTree('/clickhouse_sandbox/tables/{shard}/visits', '{replica}', Sign)
 PARTITION BY toYYYYMM(StartDate)
 ORDER BY (CounterID, StartDate, intHash32(UserID), VisitID)
 SAMPLE BY intHash32(UserID)
 SETTINGS index_granularity = 8192;
 
-CREATE TABLE IF NOT EXISTS tutorial.visits AS tutorial.visits_v1
-ENGINE = Distributed(sandbox_2shards_1replicas, tutorial, visits_v1, rand());
+CREATE TABLE IF NOT EXISTS tutorial.visits AS tutorial.visits_shard
+ENGINE = Distributed(sandbox_2shards_1replicas, tutorial, visits_shard, rand());
 
-CREATE TABLE IF NOT EXISTS tutorial.hits AS tutorial.hits_v1
-ENGINE = Distributed(sandbox_2shards_1replicas, tutorial, hits_v1, rand());
+CREATE TABLE IF NOT EXISTS tutorial.hits AS tutorial.hits_shard
+ENGINE = Distributed(sandbox_2shards_1replicas, tutorial, hits_shard, rand());
