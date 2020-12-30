@@ -335,4 +335,10 @@ ENGINE = CollapsingMergeTree(Sign)
 PARTITION BY toYYYYMM(StartDate)
 ORDER BY (CounterID, StartDate, intHash32(UserID), VisitID)
 SAMPLE BY intHash32(UserID)
-SETTINGS index_granularity = 8192
+SETTINGS index_granularity = 8192;
+
+CREATE TABLE IF NOT EXISTS tutorial.visits AS tutorial.visits_v1
+ENGINE = Distributed(sandbox_2shards_1replicas, tutorial, visits_v1, rand());
+
+CREATE TABLE IF NOT EXISTS tutorial.hits AS tutorial.hits_v1
+ENGINE = Distributed(sandbox_2shards_1replicas, tutorial, hits_v1, rand());
