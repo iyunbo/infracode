@@ -7,3 +7,4 @@
   shell: "cat tutorial.sql | clickhouse-client -mn"
   args:
     chdir: "{{ work_dir }}"
+  run_once: true

@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS tutorial;
 
-CREATE TABLE IF NOT EXISTS tutorial.hits_shard
+CREATE TABLE IF NOT EXISTS tutorial.hits_shard ON CLUSTER '{cluster}'
 (
     `WatchID` UInt64,
     `JavaEnable` UInt8,
@@ -143,7 +143,7 @@ ORDER BY (CounterID, EventDate, intHash32(UserID))
 SAMPLE BY intHash32(UserID)
 SETTINGS index_granularity = 8192;
 
-CREATE TABLE IF NOT EXISTS tutorial.visits_shard
+CREATE TABLE IF NOT EXISTS tutorial.visits_shard ON CLUSTER '{cluster}'
 (
     `CounterID` UInt32,
     `StartDate` Date,
@@ -337,8 +337,8 @@ ORDER BY (CounterID, StartDate, intHash32(UserID), VisitID)
 SAMPLE BY intHash32(UserID)
 SETTINGS index_granularity = 8192;
 
-CREATE TABLE IF NOT EXISTS tutorial.visits AS tutorial.visits_shard
-ENGINE = Distributed(sandbox_2shards_1replicas, tutorial, visits_shard, rand());
+CREATE TABLE IF NOT EXISTS tutorial.visits ON CLUSTER '{cluster}' AS tutorial.visits_shard
+ENGINE = Distributed('{cluster}', tutorial, visits_shard, rand());
 
-CREATE TABLE IF NOT EXISTS tutorial.hits AS tutorial.hits_shard
-ENGINE = Distributed(sandbox_2shards_1replicas, tutorial, hits_shard, rand());
+CREATE TABLE IF NOT EXISTS tutorial.hits ON CLUSTER '{cluster}' AS tutorial.hits_shard
+ENGINE = Distributed('{cluster}', tutorial, hits_shard, rand());

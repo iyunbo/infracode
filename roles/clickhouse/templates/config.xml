@@ -503,6 +503,7 @@
     <macros>
         <shard>{{ shard }}</shard>
         <replica>{{ replica }}</replica>
+        <cluster>sandbox_2shards_1replicas</cluster>
     </macros>
 
 
