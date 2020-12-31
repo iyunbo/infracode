@@ -1,10 +1,21 @@
-- name: Copy SQL file
+- name: Copy SQL file for tables
   copy:
-    src: "tutorial.sql"
+    src: "{{ file_tables }}"
+    dest: "{{ work_dir }}/"
+
+- name: Copy SQL file for cubes
+  copy:
+    src: "{{ file_cubes }}"
     dest: "{{ work_dir }}/"
 
 - name: Create tutorial database
-  shell: "cat tutorial.sql | clickhouse-client -mn"
+  shell: "cat {{ file_tables }} | clickhouse-client -mn"
+  args:
+    chdir: "{{ work_dir }}"
+  run_once: true
+
+- name: Create tutorial cube
+  shell: "cat {{ file_cubes }} | clickhouse-client -mn"
   args:
     chdir: "{{ work_dir }}"
   run_once: true

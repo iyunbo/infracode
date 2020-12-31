@@ -60,3 +60,14 @@
     chdir: "{{ work_dir }}"
   run_once: true
   when: visits_count.stdout == "0"
+
+- name: Check cube
+  shell: |
+    clickhouse-client --query 'select `Day`, countMerge(`Count`), avgMerge(`Average Duration`) from tutorial.visits_daily group by `Day` order by `Day` desc limit 1 format TSV' | cut -f2
+  register: recent_visits
+  run_once: true
+
+- name: Cube validation
+  debug:
+    msg: "Cube is OK"
+  when: recent_visits.stdout == "207428"

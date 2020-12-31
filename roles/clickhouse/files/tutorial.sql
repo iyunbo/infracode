@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS tutorial;
+CREATE DATABASE IF NOT EXISTS tutorial on CLUSTER '{cluster}';
 
 CREATE TABLE IF NOT EXISTS tutorial.hits_shard ON CLUSTER '{cluster}'
 (

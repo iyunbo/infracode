@@ -6,3 +6,5 @@ requirement_packages:
 work_dir: "{{ ansible_env.HOME }}/clickhouse-workdir"
 master_ip: "192.168.1.19"
 clickhouse_config_file: "/etc/clickhouse-server/config.xml"
+file_tables: "tutorial.sql"
+file_cubes: "cube.sql"
