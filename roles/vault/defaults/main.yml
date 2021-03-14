@@ -1,6 +1,11 @@
 version: "1.1"
 vault_host: "192.168.3.19"
 
+# the master bucket (PROD)
+#s3_bucket_name: "iyunbo-vault"
+#s3_region: "eu-west-3"
+
+# the backup bucket (DEV)
 s3_bucket_name: "iyunbo-vault-backup"
 s3_region: "eu-west-2"
 s3_access_key: !vault |
