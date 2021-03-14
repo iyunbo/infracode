@@ -1,0 +1,44 @@
+- name: Prepare docker directory
+  file:
+    path: "{{ docker_dir }}"
+    state: directory
+
+- name: Prepare config files
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ docker_dir }}/{{ item }}"
+  loop:
+    - "{{ docker_file }}"
+    - "{{ server_conf_file }}"
+    - "{{ server_crt_file }}"
+    - "{{ server_key_file }}"
+
+#- name: Build vault docker image
+#  docker_image:
+#    name: "{{ docker_image_name }}"
+#    docker_host: "{{ docker_host }}"
+#    tag: "{{ version }}"
+#    build:
+#      path: "{{ docker_dir }}"
+#    source: build
+#    state: present
+
+- name: Build vault docker image
+  shell: |
+    export DOCKER_HOST={{ docker_host }}
+    docker build -t {{ docker_image_name }}:{{ version }} {{ docker_dir }}
+  args:
+    executable: /bin/bash
+  delegate_to: localhost
+
+- name: Start the vault container
+  docker_container:
+    docker_host: "{{ docker_host }}"
+    name: "{{ docker_image_name }}"
+    image: "{{ docker_image_name }}:{{ version }}"
+    published_ports: "{{ public_port }}:{{ server_port }}"
+    container_default_behavior: "no_defaults"
+    state: started
+
+- name: Verify vault is running
+  wait_for: host={{ vault_host }} port={{ public_port }} timeout=5
