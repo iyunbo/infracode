@@ -32,7 +32,7 @@ function perf_blame(){
 
 function wifiinfo(){
  set -x
- iw dev wlp2s0 link
+ iw dev $(ifconfig | grep wlp | cut -d':' -f1) link
  sudo lshw -C network
 }
 
