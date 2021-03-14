@@ -11,6 +11,6 @@ listener "tcp" {
 storage "s3" {
   access_key = "{{ s3_access_key }}"
   secret_key = "{{ s3_access_secret }}"
-  bucket = "iyunbo-vault-dev"
-  region = "eu-west-3"
+  bucket = "{{ s3_bucket_name }}"
+  region = "{{ s3_region }}"
 }

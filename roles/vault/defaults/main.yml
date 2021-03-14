@@ -1,6 +1,8 @@
-version: "1.0"
+version: "1.1"
 vault_host: "192.168.3.19"
 
+s3_bucket_name: "iyunbo-vault-backup"
+s3_region: "eu-west-2"
 s3_access_key: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   32306164366132646430356165313465356562393862623437616665386239636537643464323065
