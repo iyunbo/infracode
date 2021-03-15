@@ -2,8 +2,8 @@
 
 export JAVA_HOME=/home/iyunbo/.jdks/corretto-15.0.2
 export PATH=$PATH:/home/iyunbo/tools/node-v14.11.0-linux-x64/bin
-export VAULT_ADDR="https://192.168.1.22:31000/"
-export VAULT_SKIP_VERIFY=1
+
+# Azure
 export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=true
 
 function stopall(){
@@ -49,18 +49,18 @@ function fin(){
 }
 
 function docker_nas(){
- export DOCKER_HOST=tcp://192.168.1.22:2376 DOCKER_TLS_VERIFY=1
- echo "docker points to $DOCKER_HOST"
+  export DOCKER_HOST=tcp://192.168.1.22:2376 DOCKER_TLS_VERIFY=1
 }
 
 function docker_mi(){
- export DOCKER_HOST=tcp://192.168.3.19:2375
- unset DOCKER_TLS_VERIFY
- echo "docker points to $DOCKER_HOST"
+  export DOCKER_HOST=tcp://192.168.3.19:2375
+  unset DOCKER_TLS_VERIFY
 }
 
 function setup_vault(){
- complete -C /home/iyunbo/.local/bin/vault vault
+  export VAULT_ADDR="https://192.168.1.22:31000/"
+  export VAULT_SKIP_VERIFY=1
+  complete -C /home/iyunbo/.local/bin/vault vault
 }
 
 docker_mi
