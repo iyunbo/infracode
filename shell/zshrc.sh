@@ -1,10 +1,20 @@
 #!/usr/bin/zsh
 
-export JAVA_HOME=/home/iyunbo/.jdks/corretto-15.0.2
-export PATH=$PATH:/home/iyunbo/tools/node-v14.11.0-linux-x64/bin
+# basic setup
+function basic_setup(){
+  # PATH vars
+  export JAVA_HOME=/home/iyunbo/.jdks/corretto-15.0.2
+  export PATH=$PATH:/home/iyunbo/tools/node-v14.11.0-linux-x64/bin
+  # Azure
+  export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=true
+  # Shell
+  # enable colors
+  autoload U colors && colors
+  # auto correction
+  setopt correct
+  export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [Yes, No, Abort, Edit] "
+}
 
-# Azure
-export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=true
 
 function stopall(){
   docker stop $(docker ps -aq)
@@ -63,5 +73,6 @@ function setup_vault(){
   complete -C /home/iyunbo/.local/bin/vault vault
 }
 
+basic_setup
 docker_mi
 setup_vault
