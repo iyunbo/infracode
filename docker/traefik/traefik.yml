@@ -1,4 +1,9 @@
-# Docker configuration backend
+## Static configuration
+entryPoints:
+  awx:
+    address: ":8000"
+
+# File configuration backend
 providers:
   file:
     filename: "/etc/traefik/routing.yml"
