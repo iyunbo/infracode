@@ -3,8 +3,8 @@
 # basic setup
 function basic_setup(){
   # PATH vars
-  export JAVA_HOME=/home/iyunbo/.jdks/corretto-15.0.2
-  export PATH=$PATH:/home/iyunbo/tools/node-v14.11.0-linux-x64/bin
+  export JAVA_HOME=~/.jdks/corretto-15.0.2
+  export PATH=$PATH:~/tools/node-v14.11.0-linux-x64/bin
   # Azure
   export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=true
   # Shell
@@ -13,6 +13,9 @@ function basic_setup(){
   # auto correction
   setopt correct
   export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [Yes, No, Abort, Edit] "
+
+  # sdk
+  source ~/.sdkman/bin/sdkman-init.sh
 }
 
 
