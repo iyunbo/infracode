@@ -1,15 +1,12 @@
 ## HTTP configuration
 http:
-  # Add the router
   routers:
-    router0:
-      entryPoints:
-        - awx
+    to-awx:
       service: awx-service
-      rule: Path(`/awx`)
+      rule: "Path(`/awx`)"
 
   services:
     awx-service:
       loadBalancer:
         servers:
-          - url: "http://192.168.49.2:31828/"
+          - url: "http://192.168.49.2:31828"
