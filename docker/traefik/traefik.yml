@@ -1,3 +1,23 @@
+## Static configuration
+entryPoints:
+  awx:
+    address: ":8080"
+
+## Dynamic configuration
+http:
+  # Add the router
+  routers:
+    router0:
+      entryPoints:
+        - awx
+      service: awx-service
+      
+  services:
+    awx-service:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.49.2:31828/"
+
 # Docker configuration backend
 providers:
   docker:
