@@ -9,3 +9,6 @@ api:
 
 accessLog:
   filePath: "/var/log/access.log"
+
+log:
+  filePath: "/var/log/traefik.log"
