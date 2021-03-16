@@ -12,4 +12,4 @@ http:
     awx-service:
       loadBalancer:
         servers:
-          - url: "http://192.168.49.2:31828"
+          - url: "http://192.168.49.2:31828/"
