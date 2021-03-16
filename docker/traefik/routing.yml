@@ -3,7 +3,7 @@ http:
   routers:
     to-awx:
       service: awx-service
-      rule: "Path(`/awx`)"
+      rule: "Path('/awx')"
 
   services:
     awx-service:
