@@ -1,3 +1,9 @@
+# specific entry points
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
 # File configuration backend
 providers:
   file:

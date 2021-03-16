@@ -2,8 +2,12 @@
 http:
   routers:
     to-awx:
-      service: awx-service
+      entryPoints:
+        - "web"
+        - "websecure"
       rule: "PathPrefix(`/`)"
+      service: awx-service
+
   services:
     awx-service:
       loadBalancer:
