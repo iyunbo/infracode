@@ -1,0 +1,25 @@
+- name: Create traefik directory
+  ansible.builtin.file:
+    path: "{{ traefik_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Install the traefik binary
+  ansible.builtin.unarchive:
+    src: "https://github.com/traefik/traefik/releases/download/{{ traefik_version }}/traefik_{{ traefik_version }}_linux_amd64.tar.gz"
+    creates: "{{ traefik_dir }}/traefik"
+    dest: "{{ traefik_dir }}/"
+    mode: "u+rx"
+    remote_src: yes
+
+- name: Setup traefik
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ traefik_dir }}/"
+  loop:
+    - traefik.yml
+    - routing.yml
+
+- name: Run traefik
+  ansible.builtin.shell: "nohup {{ traefik_dir }}/traefik --configFile={{ traefik_dir }}/traefik.yml 2>&1 > {{ traefik_dir }}/out.log &"
+  become: true

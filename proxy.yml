@@ -1,0 +1,6 @@
+---
+- hosts: mi
+  roles:
+    - traefik
+  tags:
+    - traefik

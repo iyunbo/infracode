@@ -1,0 +1,14 @@
+# File configuration backend
+providers:
+  file:
+    filename: "{{ traefik_dir }}/routing.yml"
+
+# API and dashboard configuration
+api:
+  insecure: true
+
+accessLog:
+  filePath: "{{ traefik_dir }}/access.log"
+
+log:
+  filePath: "{{ traefik_dir }}/traefik.log"
