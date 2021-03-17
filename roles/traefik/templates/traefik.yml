@@ -8,6 +8,8 @@ entryPoints:
 providers:
   file:
     filename: "{{ traefik_dir }}/routing.yml"
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
 
 # API and dashboard configuration
 api:

@@ -1,15 +1,17 @@
 ## HTTP configuration
 http:
   routers:
-    to-awx:
+    to-openshift:
       entryPoints:
         - "web"
         - "websecure"
       rule: "PathPrefix(`/`)"
-      service: awx-service
-
+      service: openshift-service
+  serversTransports:
+    local-transport:
+      insecureSkipVerify: true
   services:
-    awx-service:
+    openshift-service:
       loadBalancer:
         servers:
           - url: "http://{{ awx_ip }}:{{ awx_port }}/"

@@ -1,5 +1,5 @@
 traefik_dir: "{{ ansible_env.HOME }}/traefik"
 traefik_version: "v2.4.7"
 
-awx_ip: "192.168.49.2"
-awx_port: "31828"
+awx_ip: "localhost"
+awx_port: "8000"
