@@ -20,6 +20,16 @@
     - traefik.yml
     - routing.yml
 
-- name: Run traefik
-  ansible.builtin.shell: "nohup {{ traefik_dir }}/traefik --configFile={{ traefik_dir }}/traefik.yml 2>&1 > {{ traefik_dir }}/out.log &"
-  become: true
+- name: Install traefik as sytemd unit
+  ansible.builtin.template:
+    src: "traefik.service"
+    dest: "/etc/systemd/system/"
+  become: yes
+
+- name: Restart traefik and enable it as service
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+    name: traefik
+  become: yes
