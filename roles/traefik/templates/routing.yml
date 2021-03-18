@@ -1,17 +1,37 @@
 ## HTTP configuration
 http:
   routers:
-    to-openshift:
+    to-awx:
       entryPoints:
         - "web"
-        - "websecure"
-      rule: "PathPrefix(`/`)"
-      service: openshift-service
-  serversTransports:
-    local-transport:
-      insecureSkipVerify: true
+      rule: "Host(`awx`)"
+      service: awx-service
+
+    to-vault:
+      entryPoints:
+        - "web"
+      rule: "Host(`vault`)"
+      service: vault-service
+
+    dashboard:
+      entryPoints:
+        - "web"
+      rule: "Host(`mi`) && PathPrefix(`/`)"
+      service: dashboard@internal
+
+    api:
+      entryPoints:
+        - "web"
+      rule: "Host(`mi`) && PathPrefix(`/api`)"
+      service: api@internal
+
   services:
-    openshift-service:
+    awx-service:
       loadBalancer:
         servers:
           - url: "http://{{ awx_ip }}:{{ awx_port }}/"
+
+    vault-service:
+      loadBalancer:
+        servers:
+          - url: "https://{{ vault_ip }}:{{ vault_port }}/"
