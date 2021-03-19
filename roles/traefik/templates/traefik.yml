@@ -2,8 +2,8 @@
 entryPoints:
   web:
     address: ":80"
-  websecure:
-    address: ":443"
+#  websecure:
+#    address: ":443"
 # File configuration backend
 providers:
   file:
@@ -13,6 +13,17 @@ providers:
 
 serversTransport:
   insecureSkipVerify: true
+
+# this is not used for local network
+certificatesResolvers:
+  cert-resolver:
+    acme:
+      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      email: w.yunbo@gmail.com
+      storage: "{{ traefik_dir }}/acme.json"
+      httpChallenge:
+        # used during the challenge
+        entryPoint: web
 
 # API and dashboard configuration
 api:
