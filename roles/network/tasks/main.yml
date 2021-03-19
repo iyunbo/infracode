@@ -1,0 +1,9 @@
+- name: Create network alias
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: "{{ service_ip_regex }}"
+    line: "{{ service_ip }}    {{ service_domains }}"
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
