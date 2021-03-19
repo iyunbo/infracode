@@ -1,6 +1,6 @@
 ---
 - hosts: master
-  remote_user: admin
+  remote_user: root
   roles:
     - network
   tags:
