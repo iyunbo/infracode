@@ -7,3 +7,5 @@
     group: root
     mode: '0644'
   become: yes
+  become_method: sudo
+  become_user: root
