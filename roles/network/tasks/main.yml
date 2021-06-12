@@ -21,3 +21,15 @@
   become: yes
   become_method: sudo
   become_user: root
+
+- name: Create network alias for iMac (M1)
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: "{{ imac_ip_regex }}"
+    line: "{{ imac_ip }}    {{ imac_domains }}"
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+  become_method: sudo
+  become_user: root
