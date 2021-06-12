@@ -5,3 +5,7 @@ service_ip_regex: "^{{ service_ip }}"
 nas_domains: "nas iyunbonas.myqnapcloud.com"
 nas_ip: "192.168.1.22"
 nas_ip_regex: "^{{ nas_ip }}"
+
+imac_domains: "imac m1"
+imac_ip: "192.168.3.12"
+imac_ip_regex: "^{{ imac_ip }}"
