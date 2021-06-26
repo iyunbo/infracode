@@ -9,3 +9,7 @@ nas_ip_regex: "^{{ nas_ip }}"
 imac_domains: "imac m1"
 imac_ip: "192.168.3.12"
 imac_ip_regex: "^{{ imac_ip }}"
+
+cs_domains: "cs"
+cs_ip: "192.168.3.11"
+cs_ip_regex: "^{{ cs_ip }}"

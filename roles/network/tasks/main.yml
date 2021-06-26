@@ -33,3 +33,15 @@
   become: yes
   become_method: sudo
   become_user: root
+
+- name: Create network alias for CS (Macbook Pro)
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: "{{ cs_ip_regex }}"
+    line: "{{ cs_ip }}    {{ cs_domains }}"
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+  become_method: sudo
+  become_user: root
